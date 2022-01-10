@@ -1,28 +1,21 @@
-import BaseLayout from "../../components/layouts/BaseLayout";
-import axios from "axios";
+import BaseLayout from "@components/layouts/BaseLayout";
+import BasePage from "@components/BasePage";
+import { useGetPostById } from "@actions/index";
 import { useRouter } from "next/router";
 
-const PortfolioDetails = ({ portfolio }) => {
+const PortfolioDetails = () => {
+  const router = useRouter();
+  const { data, error, loading } = useGetPostById(router.query.id);
   return (
     <BaseLayout>
-      <h1>details</h1>
-      <h2>{portfolio.title}</h2>
+      <BasePage>
+        <h1>Details</h1>
+        {loading && <p>Loading...</p>}
+        {data && <h2>{data.title}</h2>}
+        {error && <div className="alert alert-danger">{error.message}</div>}
+      </BasePage>
     </BaseLayout>
   );
-};
-
-PortfolioDetails.getInitialProps = async ({ query }) => {
-  let post = {};
-  try {
-    const res = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts/${query.id}`
-    );
-    post = res.data;
-  } catch (error) {
-    console.error("cannot fetch post", error.message);
-  }
-
-  return { portfolio: post };
 };
 
 export default PortfolioDetails;
