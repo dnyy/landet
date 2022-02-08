@@ -5,7 +5,9 @@
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@styles/*": ["styles/*"],
-      "@actions/*": ["actions/*"]
+      "@actions/*": ["actions/*"],
+      "@lib/*": ["lib/*"],
+      "@hoc/*": ["hoc/*"]
     }
   }
 }

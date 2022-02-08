@@ -1,14 +1,17 @@
-import { useUser } from "@auth0/nextjs-auth0";
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import BaseLayout from "@components/layouts/BaseLayout";
 import BasePage from "@components/BasePage";
 
-const About = () => {
+const OnlyAdmin = () => {
   const { user, error, isLoading } = useUser();
   return (
     <BaseLayout user={user} isLoading={isLoading}>
-      <BasePage header="About">{/* <h1>Im about</h1> */}</BasePage>
+      <BasePage>
+        <h1>im admin</h1>
+      </BasePage>
     </BaseLayout>
   );
 };
 
-export default About;
+export default OnlyAdmin;
+export const getServerSideProps = withPageAuthRequired();

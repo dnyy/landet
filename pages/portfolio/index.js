@@ -1,29 +1,82 @@
 import Link from "next/link";
-import { useGetPosts } from "@actions/index";
+import { useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0";
+import { Row, Col, Button } from "reactstrap";
+import { useRouter } from "next/router";
+import { useDeletePortfolio } from "@actions/portfolio";
+import PortfolioApi from "@lib/api/portfolio";
 import BaseLayout from "@components/layouts/BaseLayout";
 import BasePage from "@components/BasePage";
+import PortfolioCard from "@components/PortfolioCard";
+import { isAuthorized } from "utils/auth";
 
-const Portfolio = () => {
-  const { data, error, loading } = useGetPosts();
-  const renderPosts = () =>
-    data.map((post) => (
-      <li key={post.id}>
-        <Link href={`/portfolio/${post.id}`}>
-          <a>{post.title}</a>
-        </Link>
-      </li>
-    ));
+const Portfolios = ({ portfolios: initialPortfolios }) => {
+  const router = useRouter();
+  const [portfolios, setPortfolios] = useState(initialPortfolios);
+  const { user, error: userError, isLoading: userIsLoading } = useUser();
+  const [deletePortfolio, { data, error }] = useDeletePortfolio();
 
+  const _deletePortfolio = async (e, portfolioId) => {
+    e.stopPropagation();
+    const isConfirm = confirm("Are sure you want to delete this portfolio?");
+    if (isConfirm) {
+      await deletePortfolio(portfolioId);
+      setPortfolios(portfolios.filter((p) => p._id !== portfolioId));
+    }
+  };
   return (
     <BaseLayout>
-      <BasePage>
-        <h1>Im Portfolio</h1>
-        {loading && <p>Loding data</p>}
-        {data && <ul>{renderPosts()}</ul>}
-        {error && <div className="alert alert-danger">{error.message}</div>}
+      <BasePage header="Portfolios" className="portfolio-page">
+        <Row>
+          {portfolios.map((portfolio) => (
+            <Col
+              md="4"
+              key={portfolio._id}
+              onClick={() => {
+                router.push("/portfolio/[id]", `/portfolio/${portfolio._id}`);
+              }}
+            >
+              <PortfolioCard portfolio={portfolio}>
+                {user && isAuthorized(user, "admin") && (
+                  <>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(
+                          "/portfolio/[id]/edit",
+                          `/portfolio/${portfolio._id}/edit`
+                        );
+                      }}
+                      className="mr-2"
+                      color="warning"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={(e) => _deletePortfolio(e, portfolio._id)}
+                      color="danger"
+                    >
+                      Delete
+                    </Button>
+                  </>
+                )}
+              </PortfolioCard>
+            </Col>
+          ))}
+        </Row>
       </BasePage>
     </BaseLayout>
   );
 };
 
-export default Portfolio;
+// static props, good if content not changing ofter
+export async function getStaticProps() {
+  const json = await new PortfolioApi().getAll();
+  const portfolios = json.data;
+  return {
+    props: { portfolios },
+    revalidate: 1,
+  };
+}
+
+export default Portfolios;

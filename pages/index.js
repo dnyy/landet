@@ -1,12 +1,27 @@
+import { useUser } from "@auth0/nextjs-auth0";
 import { Container, Row, Col } from "reactstrap";
 import BaseLayout from "@components/layouts/BaseLayout";
+import { useGetUser } from "@actions/user";
+import Image from "next/image";
 
 const Home = () => {
+  const { user, error, isLoading } = useUser();
+  const { data } = useGetUser();
   return (
-    <BaseLayout className="cover">
+    <BaseLayout
+      user={user}
+      isLoading={isLoading}
+      navClass="transparent"
+      className="cover"
+    >
       <div className="main-section">
         <div className="background-image">
-          <img src="/images/background-index.png" />
+          <Image
+            src="/images/background-index.png"
+            alt="background image"
+            width={1548}
+            height={500}
+          />
         </div>
         <Container>
           <Row>
@@ -20,7 +35,12 @@ const Home = () => {
                         Lite text.
                       </div>
                     </div>
-                    <img className="image" src="/images/section-1.png" />
+                    <Image
+                      src="/images/section-1.png"
+                      alt="section image"
+                      width={465}
+                      height={619}
+                    />
                     <div className="shadow-custom">
                       <div className="shadow-inner"> </div>
                     </div>

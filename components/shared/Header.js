@@ -1,33 +1,88 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+import { useUser } from "@auth0/nextjs-auth0";
+import { isAuthorized } from "utils/auth";
 
 const BsNavLink = (props) => {
-  const { href, title } = props;
+  const { href, title, className = "" } = props;
   return (
     <Link href={href}>
-      <a className="nav-link port-navbar-link">{title}</a>
+      <a className={`nav-link port-navbar-link ${className}`}>{title}</a>
     </Link>
   );
 };
 
 const LoginLink = () => (
-  <span className="nav-link port-navbar-link clickable">Logga in</span>
+  <Link href="/api/auth/login">
+    <a className="nav-link port-navbar-link">Logga in</a>
+  </Link>
 );
 
 const LogoutLink = () => (
-  <span className="nav-link port-navbar-link clickable">Logga ut</span>
+  <Link href="/api/auth/logout">
+    <a className="nav-link port-navbar-link">Logga ut</a>
+  </Link>
 );
 
-const Header = () => {
+const AdminMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Dropdown
+      className="port-navbar-link port-dropdown-menu"
+      nav
+      isOpen={isOpen}
+      toggle={() => setIsOpen(!isOpen)}
+    >
+      <DropdownToggle className="port-dropdown-toggle" nav caret>
+        Admin
+      </DropdownToggle>
+      <DropdownMenu right>
+        <DropdownItem>
+          <BsNavLink
+            className="port-dropdown-item"
+            href="/portfolio/new"
+            title="Create Portfolio"
+          />
+        </DropdownItem>
+        <DropdownItem>
+          <BsNavLink
+            className="port-dropdown-item"
+            href="/blogs/editor"
+            title="Blog Editor"
+          />
+        </DropdownItem>
+        <DropdownItem>
+          <BsNavLink
+            className="port-dropdown-item"
+            href="/blogs/dashboard"
+            title="Dashboard"
+          />
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  );
+};
+
+const Header = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const { user, error, isLoading } = useUser();
 
   return (
     <div>
       <Navbar
-        className="port-navbar port-default absolute"
-        color="transparent"
+        className={`port-navbar port-default absolute ${className}`}
         dark
         expand="md"
       >
@@ -43,25 +98,49 @@ const Header = () => {
               <BsNavLink href="/" title="Home" />
             </NavItem>
             <NavItem className="port-navbar-item">
-              <BsNavLink href="/about" title="Stugorna" />
+              <BsNavLink href="/about" title="About" />
             </NavItem>
             <NavItem className="port-navbar-item">
-              <BsNavLink href="/portfolio" title="Information" />
+              <BsNavLink href="/portfolio" title="Portfolio" />
             </NavItem>
             <NavItem className="port-navbar-item">
               <BsNavLink href="/blog" title="Blogg" />
             </NavItem>
             <NavItem className="port-navbar-item">
-              <BsNavLink href="/cv" title="Övrigt" />
+              <BsNavLink href="/cv" title="CV" />
+            </NavItem>
+            {/* <NavItem className="port-navbar-item">
+              <BsNavLink href="/houses" title="Stugorna" />
+            </NavItem> */}
+            {/* <NavItem className="port-navbar-item">
+              <BsNavLink href="/boardOfDirectors" title="Styrelsen" />
+            </NavItem> */}
+            {/* <NavItem className="port-navbar-item">
+              <BsNavLink href="/market" title="Marknad" />
+            </NavItem> */}
+            <NavItem className="port-navbar-item">
+              <BsNavLink href="/onlyadmin" title="Admin" />
             </NavItem>
           </Nav>
           <Nav navbar>
-            <NavItem className="port-navbar-item">
-              <LoginLink />
-            </NavItem>
-            <NavItem className="port-navbar-item">
-              <LogoutLink />
-            </NavItem>
+            {!isLoading && (
+              <>
+                {user && (
+                  <>
+                    <span>Hej {user.name}</span>
+                    {isAuthorized(user, "admin") && <AdminMenu />}
+                    <NavItem className="port-navbar-item">
+                      <LogoutLink />
+                    </NavItem>
+                  </>
+                )}
+                {!user && (
+                  <NavItem className="port-navbar-item">
+                    <LoginLink />
+                  </NavItem>
+                )}
+              </>
+            )}
           </Nav>
         </Collapse>
       </Navbar>
