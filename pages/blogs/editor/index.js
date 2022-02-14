@@ -6,7 +6,7 @@ import withAuth from "hoc/withAuth";
 const BlogEditor = ({ user, loading }) => {
   return (
     <BaseLayout user={user} loading={loading}>
-      <BasePage header="BlogEditor">{<h1>Im BlogEditor</h1>}</BasePage>
+      <BasePage header="Blog Editor">{<h1>Im BlogEditor</h1>}</BasePage>
     </BaseLayout>
   );
 };
