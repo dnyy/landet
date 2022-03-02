@@ -12,6 +12,7 @@
     "@auth0/nextjs-auth0": "^1.7.0",
     "axios": "^0.24.0",
     "bootstrap": "^4.4.1",
+    "dayjs": "^1.10.8",
     "next": "^12.0.10",
     "react": "17.0.2",
     "react-datepicker": "^4.6.0",
@@ -20,6 +21,7 @@
     "react-toastify": "^8.1.1",
     "reactstrap": "^8.9.0",
     "sass": "^1.47.0",
+    "slate-simple-editor": "github:Jerga99/slate-simple-editor",
     "swr": "^1.1.2"
   },
   "devDependencies": {

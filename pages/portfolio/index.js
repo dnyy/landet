@@ -69,7 +69,7 @@ const Portfolios = ({ portfolios: initialPortfolios }) => {
   );
 };
 
-// static props, good if content not changing ofter
+// static props, good if content not changing often
 export async function getStaticProps() {
   const json = await new PortfolioApi().getAll();
   const portfolios = json.data;
