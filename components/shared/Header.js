@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import {
   Collapse,
@@ -13,13 +13,15 @@ import {
 } from "reactstrap";
 import { useUser } from "@auth0/nextjs-auth0";
 import { isAuthorized } from "utils/auth";
+import { useResizeDetector } from "react-resize-detector";
+import ActiveLink from "@components//shared/ActiveLink";
 
 const BsNavLink = (props) => {
   const { href, title, className = "" } = props;
   return (
-    <Link href={href}>
+    <ActiveLink activeClassName="active" href={href}>
       <a className={`nav-link port-navbar-link ${className}`}>{title}</a>
-    </Link>
+    </ActiveLink>
   );
 };
 
@@ -75,14 +77,17 @@ const AdminMenu = () => {
 };
 
 const Header = ({ className }) => {
+  const { width, ref } = useResizeDetector();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { user, error, isLoading } = useUser();
 
   return (
-    <div>
+    <div ref={ref}>
       <Navbar
-        className={`port-navbar port-default absolute ${className}`}
+        className={`port-navbar port-default absolute ${className} ${
+          width < 768 && isOpen ? "is-open" : "is-closed"
+        }`}
         dark
         expand="md"
       >

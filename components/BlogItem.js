@@ -15,7 +15,7 @@ const BlogItem = ({ blog }) => (
       </Link>
       <p className="post-meta">
         Posted by
-        <a href="#"> Daniel Toll </a>-{" "}
+        <a href="#"> {blog.author.name} </a>-{" "}
         {dayjs(blog.createdAt).locale("sv").format("LLLL")}
       </p>
     </div>

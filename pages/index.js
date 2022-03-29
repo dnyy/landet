@@ -3,16 +3,33 @@ import { Container, Row, Col } from "reactstrap";
 import BaseLayout from "@components/layouts/BaseLayout";
 import { useGetUser } from "@actions/user";
 import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
 
 const Home = () => {
   const { user, error, isLoading } = useUser();
   const { data } = useGetUser();
+  const [isFlipping, setIsFlipping] = useState(false);
+  const flipInterval = useRef();
+
+  // ----- flip effect
+  useEffect(() => {
+    startAnimation();
+    return () => flipInterval.current && clearInterval(flipInterval.current);
+  }, []);
+
+  const startAnimation = () => {
+    flipInterval.current = setInterval(() => {
+      setIsFlipping((previousFlipping) => !previousFlipping);
+    }, 20000);
+  };
+  // ------- end flip effect
+
   return (
     <BaseLayout
       user={user}
       isLoading={isLoading}
       navClass="transparent"
-      className="cover"
+      className={`cover ${isFlipping ? "cover-orange" : "cover-blue"}`}
     >
       <div className="main-section">
         <div className="background-image">
@@ -27,8 +44,8 @@ const Home = () => {
           <Row>
             <Col md="6">
               <div className="hero-section">
-                <div className={`flipper`}>
-                  <div className="back">
+                <div className={`flipper ${isFlipping ? "isFlipping" : ""}`}>
+                  <div className="front">
                     <div className="hero-section-content">
                       <h2> Nedre Sundet </h2>
                       <div className="hero-section-content-intro">
@@ -39,9 +56,26 @@ const Home = () => {
                       src="/images/section-1.png"
                       alt="section image"
                       width={465}
-                      height={619}
+                      height={620}
                     />
                     <div className="shadow-custom">
+                      <div className="shadow-inner"> </div>
+                    </div>
+                  </div>
+                  <div className="back">
+                    <div className="hero-section-content">
+                      <h2> Nedre Sundet </h2>
+                      <div className="hero-section-content-intro">
+                        Lite text.
+                      </div>
+                    </div>
+                    <Image
+                      src="/images/section-1-old.png"
+                      alt="section image"
+                      width={465}
+                      height={620}
+                    />
+                    <div className="shadow-custom-orange">
                       <div className="shadow-inner"> </div>
                     </div>
                   </div>
