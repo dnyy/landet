@@ -10,5 +10,6 @@
       "@hoc/*": ["hoc/*"]
     },
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

@@ -123,9 +123,9 @@ const Header = ({ className }) => {
             {/* <NavItem className="port-navbar-item">
               <BsNavLink href="/market" title="Marknad" />
             </NavItem> */}
-            <NavItem className="port-navbar-item">
+            {/* <NavItem className="port-navbar-item">
               <BsNavLink href="/onlyadmin" title="Admin" />
-            </NavItem>
+            </NavItem> */}
           </Nav>
           <Nav navbar>
             {!isLoading && (

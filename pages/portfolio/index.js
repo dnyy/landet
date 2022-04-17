@@ -26,7 +26,11 @@ const Portfolios = ({ portfolios: initialPortfolios }) => {
   };
   return (
     <BaseLayout>
-      <BasePage header="Portfolios" className="portfolio-page">
+      <BasePage
+        title="Nya Portfolios - Nedre Sundet"
+        header="Portfolios"
+        className="portfolio-page"
+      >
         <Row>
           {portfolios.map((portfolio) => (
             <Col

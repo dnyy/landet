@@ -15,7 +15,7 @@ const BoardOfDirectors = () => {
   } else {
     return (
       <BaseLayout user={user} isLoading={isLoading}>
-        <BasePage>
+        <BasePage title="Styrelsen">
           <h1>Im BoardOfDirectors</h1>
         </BasePage>
       </BaseLayout>

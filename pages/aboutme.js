@@ -2,41 +2,25 @@ import { useUser } from "@auth0/nextjs-auth0";
 import BaseLayout from "@components/layouts/BaseLayout";
 import BasePage from "@components/BasePage";
 import { Col, Row } from "reactstrap";
-import { useEffect } from "react";
 
-const About = () => {
+const AboutMe = () => {
   const { user, error, isLoading } = useUser();
-  useEffect(() => {
-    return () => {
-      window.__isAboutLoaded = true;
-    };
-  });
-
-  const createFadeInClass = () => {
-    if (typeof window !== "undefined") {
-      return window.__isAboutLoaded ? "" : "fadein";
-    }
-
-    return "fadein";
-  };
 
   return (
     <BaseLayout user={user} isLoading={isLoading}>
-      <BasePage title="Om Landet" className="about-page">
+      <BasePage title="Om Landet" className="about-page" canonicalPath="/about">
         <Row className="mt-5">
           <Col md="6">
             <div className="left-side">
-              <h1 className={`title ${createFadeInClass()}`}>Hello, Welcome</h1>
-              <h4 className={`subtitle ${createFadeInClass()}`}>
-                To About Page
-              </h4>
-              <p className={`subsubTitle ${createFadeInClass()}`}>
+              <h1 className={`title`}>Hello, Welcome</h1>
+              <h4 className={`subtitle`}>To About Page</h4>
+              <p className={`subsubTitle`}>
                 Feel free to read short description about me.
               </p>
             </div>
           </Col>
           <Col md="6">
-            <div className={`${createFadeInClass()}`}>
+            <div>
               <p>
                 My name is Filip Jerga and I am an experienced software engineer
                 and freelance developer.{" "}
@@ -63,4 +47,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutMe;

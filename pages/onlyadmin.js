@@ -6,7 +6,7 @@ const OnlyAdmin = () => {
   const { user, error, isLoading } = useUser();
   return (
     <BaseLayout user={user} isLoading={isLoading}>
-      <BasePage>
+      <BasePage title="Admin">
         <h1>im admin</h1>
       </BasePage>
     </BaseLayout>

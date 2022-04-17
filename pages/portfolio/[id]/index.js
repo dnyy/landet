@@ -3,6 +3,7 @@ import BasePage from "@components/BasePage";
 import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import PortfolioApi from "@lib/api/portfolio";
+import { formatDate } from "helpers/functions";
 
 /**
  * Content specific to the user, NextJS always try/recommends to load it on the client
@@ -11,9 +12,43 @@ const PortfolioDetails = ({ portfolioDetails }) => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
   return (
-    <BaseLayout user={user} loading={isLoading} error={error}>
-      <BasePage header="Portfolio Details">
-        {JSON.stringify(portfolioDetails)}
+    <BaseLayout
+      user={user}
+      loading={isLoading}
+      error={error}
+      navClass="transparent"
+    >
+      <BasePage
+        indexPage
+        noWrapper
+        title={`${portfolioDetails.title} - Nedre Sundet`}
+        metaDescription={portfolioDetails.description}
+      >
+        <div className="portfolio-detail">
+          <div className="cover-container d-flex h-100 p-3 mx-auto flex-column">
+            <main role="main" className="inner page-cover">
+              <h1 className="cover-heading">{portfolioDetails.title}</h1>
+              <p className="lead dates">
+                {formatDate(portfolioDetails.startDate)} -{" "}
+                {formatDate(portfolioDetails.endDate) || "Present"}
+              </p>
+              <p className="lead info mb-0">
+                {portfolioDetails.jobTitle} | {portfolioDetails.company} |
+                {portfolioDetails.location}
+              </p>
+              <p className="lead">{portfolioDetails.description}</p>
+              <p className="lead">
+                <a
+                  href={portfolioDetails.companyWebsite}
+                  target="_"
+                  className="btn btn-lg btn-secondary"
+                >
+                  Visit Company
+                </a>
+              </p>
+            </main>
+          </div>
+        </div>
       </BasePage>
     </BaseLayout>
   );
