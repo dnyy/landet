@@ -7,12 +7,7 @@ import { getSession } from "@auth0/nextjs-auth0";
  * @returns `boolean`
  */
 export const isAuthorized = (user, role) => {
-  console.log("🚀 ~ file: auth.js ~ line 10 ~ isAuthorized ~ user", user);
-  console.log("🚀 ~ file: auth.js ~ line 4 ~ isAuthorized ~ role", role);
-  return (
-    user &&
-    user[process.env.NEXT_PUBLIC_AUTH0_NAMESPACE + "/roles"].includes(role)
-  );
+  return user && user[process.env.AUTH0_NAMESPACE + "/roles"].includes(role);
 };
 
 // export const withAuth = (getData) => (role) => async ({ req, res }) => {

@@ -56,6 +56,7 @@ const PortfolioDetails = ({ portfolioDetails }) => {
 
 /**
  * Good if content changes often
+ * fetch data for every instance that a user issues a request to the page
  */
 export async function getServerSideProps({ query }) {
   const json = await new PortfolioApi().getById(query.id);

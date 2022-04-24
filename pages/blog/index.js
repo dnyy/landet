@@ -16,8 +16,8 @@ const Blog = ({ blogs }) => {
       loading={isLoading}
     >
       <Masthead imagePath="/images/lake.jpg">
-        <h1>Fresh Blogs</h1>
-        <span className="subheading">Programming, travelling...</span>
+        <h1>Bloggen</h1>
+        <span className="subheading">Nyheter om landet</span>
       </Masthead>
       <BasePage title="Nyheter - Nedre Sundet" className="blog-body">
         <Row>
@@ -33,12 +33,17 @@ const Blog = ({ blogs }) => {
   );
 };
 
+/**
+ * fetches data at build time only
+ * get statically generated and fast load times
+ * good for SEO
+ */
 export async function getStaticProps() {
   const { data } = await new BlogApi().getAll();
   const blogs = data.map((item) => ({ ...item.blog, author: item.author }));
   return {
     props: { blogs },
-    revalidate: 60,
+    revalidate: 1,
   };
 }
 
