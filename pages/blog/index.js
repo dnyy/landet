@@ -5,6 +5,7 @@ import Masthead from "@components/shared/Masthead";
 import { Col, Row } from "reactstrap";
 import BlogApi from "@lib/api/blogs";
 import BlogItem from "@components/BlogItem";
+import withAuth from "hoc/withAuth";
 
 const Blog = ({ blogs }) => {
   const { user, error, isLoading } = useUser();
@@ -47,4 +48,5 @@ export async function getStaticProps() {
   };
 }
 
-export default Blog;
+export default withAuth(Blog)("admin");
+// export default Blog;

@@ -105,12 +105,16 @@ const Header = ({ className }) => {
             <NavItem className="port-navbar-item">
               <BsNavLink href="/about" title="About" />
             </NavItem>
-            <NavItem className="port-navbar-item">
-              <BsNavLink href="/portfolio" title="Portfolio" />
-            </NavItem>
-            <NavItem className="port-navbar-item">
-              <BsNavLink href="/blog" title="Blogg" />
-            </NavItem>
+            {isAuthorized() && (
+              <NavItem className="port-navbar-item">
+                <BsNavLink href="/portfolio" title="Portfolio" />
+              </NavItem>
+            )}
+            {isAuthorized() && (
+              <NavItem className="port-navbar-item">
+                <BsNavLink href="/blog" title="Blogg" />
+              </NavItem>
+            )}
             <NavItem className="port-navbar-item">
               <BsNavLink href="/cv" title="CV" />
             </NavItem>
