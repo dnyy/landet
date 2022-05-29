@@ -36,23 +36,23 @@
   .fadein {
     opacity: 0;
 
-    @include animation(fadein 2s);
+    @include animation(fadein 1s);
     @include animation-fill-mode(forwards);
   }
 
   .title {
-    @include animation-delay(0.7s);
+    @include animation-delay(0.4s);
     font-size: 42px;
     font-weight: bold;
   }
 
   .subtitle {
-    @include animation-delay(2.2s);
+    @include animation-delay(1.2s);
     font-size: 33px;
   }
 
   .subsubTitle {
-    @include animation-delay(3.6s);
+    @include animation-delay(1.9s);
     font-size: 18px;
   }
 

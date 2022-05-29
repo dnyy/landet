@@ -3,6 +3,7 @@ import BaseLayout from "@components/layouts/BaseLayout";
 import BasePage from "@components/BasePage";
 import { Col, Row } from "reactstrap";
 import { useEffect } from "react";
+import Masthead from "@components/shared/Masthead";
 
 const About = () => {
   const { user, error, isLoading } = useUser();
@@ -21,8 +22,8 @@ const About = () => {
   };
 
   return (
-    <BaseLayout user={user} isLoading={isLoading}>
-      <BasePage title="Om Landet" className="about-page">
+    <BaseLayout navClass="transparent" user={user} isLoading={isLoading}>
+      <Masthead imagePath="/images/lake.jpg">
         <Row className="mt-5">
           <Col md="6">
             <div className="left-side">
@@ -58,7 +59,7 @@ const About = () => {
             </div>
           </Col>
         </Row>
-      </BasePage>
+      </Masthead>
     </BaseLayout>
   );
 };

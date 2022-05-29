@@ -9,6 +9,8 @@ import BaseLayout from "@components/layouts/BaseLayout";
 import BasePage from "@components/BasePage";
 import PortfolioCard from "@components/PortfolioCard";
 import { isAuthorized } from "utils/auth";
+import Masthead from "@components/shared/Masthead";
+import withAuth from "@hoc/withAuth";
 
 const Portfolios = ({ portfolios: initialPortfolios }) => {
   const router = useRouter();
@@ -25,11 +27,22 @@ const Portfolios = ({ portfolios: initialPortfolios }) => {
     }
   };
   return (
-    <BaseLayout>
+    <BaseLayout
+      navClass="transparent"
+      className="portfolio-page"
+      user={user}
+      loading={userIsLoading}
+    >
+      <Masthead imagePath="/images/ns-landing.jpeg">
+        <h2>Kommande aktiviteter</h2>
+        <span className="subheading">
+          Nedan finns datum och mer info om kommande aktiviter på landet
+        </span>
+        <span className="subheading">Viktig info osv...</span>
+      </Masthead>
       <BasePage
         title="Nya Portfolios - Nedre Sundet"
-        header="Portfolios"
-        className="portfolio-page"
+        className="portfolio-body"
       >
         <Row>
           {portfolios.map((portfolio) => (
@@ -83,4 +96,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Portfolios;
+export default withAuth(Portfolios)();

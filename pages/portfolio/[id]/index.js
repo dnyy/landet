@@ -11,6 +11,9 @@ import { formatDate } from "helpers/functions";
 const PortfolioDetails = ({ portfolioDetails }) => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
+
+  if (router.isFallback) {
+  }
   return (
     <BaseLayout
       user={user}
@@ -27,25 +30,32 @@ const PortfolioDetails = ({ portfolioDetails }) => {
         <div className="portfolio-detail">
           <div className="cover-container d-flex h-100 p-3 mx-auto flex-column">
             <main role="main" className="inner page-cover">
-              <h1 className="cover-heading">{portfolioDetails.title}</h1>
-              <p className="lead dates">
-                {formatDate(portfolioDetails.startDate)} -{" "}
-                {formatDate(portfolioDetails.endDate) || "Present"}
-              </p>
-              <p className="lead info mb-0">
-                {portfolioDetails.jobTitle} | {portfolioDetails.company} |
-                {portfolioDetails.location}
-              </p>
-              <p className="lead">{portfolioDetails.description}</p>
-              <p className="lead">
-                <a
-                  href={portfolioDetails.companyWebsite}
-                  target="_"
-                  className="btn btn-lg btn-secondary"
-                >
-                  Visit Company
-                </a>
-              </p>
+              {router.isFallback && (
+                <h1 className="cover-heading">Hämtar...</h1>
+              )}
+              {!router.isFallback && (
+                <>
+                  <h1 className="cover-heading">{portfolioDetails.title}</h1>
+                  <p className="lead dates">
+                    {formatDate(portfolioDetails.startDate)} -{" "}
+                    {formatDate(portfolioDetails.endDate) || "Present"}
+                  </p>
+                  <p className="lead info mb-0">
+                    {portfolioDetails.jobTitle} | {portfolioDetails.company} |
+                    {portfolioDetails.location}
+                  </p>
+                  <p className="lead">{portfolioDetails.description}</p>
+                  <p className="lead">
+                    <a
+                      href={portfolioDetails.companyWebsite}
+                      target="_"
+                      className="btn btn-lg btn-secondary"
+                    >
+                      Visit Company
+                    </a>
+                  </p>
+                </>
+              )}
             </main>
           </div>
         </div>

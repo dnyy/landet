@@ -9,7 +9,7 @@ import Avatar from "@components/shared/Avatar";
 const BlogDetails = ({ blog, author }) => {
   const { user, error, isLoading } = useUser();
   return (
-    <BaseLayout user={user} isLoading={isLoading}>
+    <BaseLayout navClass="transparent" user={user} isLoading={isLoading}>
       <BasePage
         title={`${blog.title} - Nedre Sundet`}
         className="slate-container"

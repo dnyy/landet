@@ -2,41 +2,55 @@
 .port-navbar.port-default {
   width: 100%;
   z-index: 15;
-  padding: 40px;
+  padding: 20px;
 
   &.with-bg {
     background-color: #2c3e50;
     padding: 30px;
   }
 
+  &.nav-border {
+    border-bottom: 1px solid #999;
+  }
+
   .port-navbar {
     &-brand {
-      color: white;
-      font-size: 24px;
+      color: #212529;
+      // color: #f5f5f5;
+      font-size: 18px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: bold;
+      // display: flex;
+      // flex-direction: column;
+
+      // & span {
+      //   color: red;
+      // }
     }
 
     &-item {
       margin-left: 10px;
       margin-right: 10px;
+      color: #212529;
+      // color: #f5f5f5;
     }
 
     &-link {
-      color: white;
+      color: #212529;
+      // color: #f5f5f5;
       font-weight: bold;
       letter-spacing: 0.8px;
-      font-size: 18px;
+      font-size: 14px;
       text-transform: uppercase;
 
       &.active {
-        color: #dba919;
+        color: #c6c6c6;
       }
 
       &:hover,
       &:focus {
-        color: #dba919;
+        color: #c6c6c6;
       }
     }
   }
@@ -49,12 +63,12 @@
       color: #4e4e4e;
 
       &.active {
-        color: #dba919;
+        color: #c6c6c6;
       }
     }
 
     .port-dropdown-toggle {
-      color: white;
+      color: #212529;
       margin-left: 10px;
       margin-right: 10px;
     }

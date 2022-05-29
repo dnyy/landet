@@ -1,5 +1,38 @@
 // Index -----------
 
+@mixin background-cover() {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.landing {
+  // TIP: Background images are set within the HTML using inline CSS!
+  background: no-repeat center center;
+  background-color: #868e96;
+  background-attachment: scroll;
+  height: 100vh;
+  @include background-cover;
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #212529;
+    opacity: 0.8;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 300px;
+}
+
 .cover.cover-orange {
   background-image: linear-gradient(
     45deg,
@@ -39,12 +72,15 @@
 }
 
 .cover {
-  background-image: linear-gradient(45deg, #00aeef 0%, #096fb9 100%);
+  // background-image: linear-gradient(45deg, #00aeef 0%, #096fb9 100%);
+  background-color: #ecedee;
   overflow: hidden;
   position: relative;
 }
 
 .wrapper {
+  // height: 100vh;
+  // width: auto;
   min-height: 100vh;
   min-width: 100vw;
   margin-top: 0;
@@ -61,13 +97,13 @@
   height: 458px;
   width: 400px;
   h2 {
-    color: white;
+    color: #212529;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   perspective: 1000px;
-  color: white;
+  color: #212529;
   width: 400px;
   position: relative;
 
@@ -99,7 +135,7 @@
 }
 
 .hero-welcome-text > h1 {
-  color: white;
+  color: #212529;
   text-transform: uppercase;
   font-size: 27px;
   margin-top: 80px;
@@ -108,7 +144,7 @@
 
 .hero-welcome-bio {
   margin-top: 20px;
-  color: white;
+  color: #212529;
 
   .fa-stack {
     font-size: 28px;

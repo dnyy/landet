@@ -17,8 +17,11 @@ const Blog = ({ blogs }) => {
       loading={isLoading}
     >
       <Masthead imagePath="/images/lake.jpg">
-        <h1>Bloggen</h1>
-        <span className="subheading">Nyheter om landet</span>
+        <h2>Info från Styrelsen</h2>
+        <span className="subheading">
+          Sammanställningar från tidigare styrelsemöten.
+        </span>
+        <span className="subheading">Viktig info osv...</span>
       </Masthead>
       <BasePage title="Nyheter - Nedre Sundet" className="blog-body">
         <Row>
