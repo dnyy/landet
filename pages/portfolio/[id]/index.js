@@ -12,8 +12,6 @@ const PortfolioDetails = ({ portfolioDetails }) => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
 
-  if (router.isFallback) {
-  }
   return (
     <BaseLayout
       user={user}

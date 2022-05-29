@@ -12,9 +12,7 @@ import { isAuthorized } from "utils/auth";
 import Landing from "./landing";
 import Avatar from "@components/shared/Avatar";
 
-const Home = ({ blogs, users, data }) => {
-  console.log("🚀 ~ file: index.js ~ line 15 ~ Home ~ data", data);
-  // console.log("🚀 ~ file: index.js ~ line 15 ~ Home ~ users", users);
+const Home = ({ blogs, users }) => {
   const { user, error, isLoading } = useUser();
 
   const landingImage = "/images/ns-landing.jpeg";
@@ -31,17 +29,11 @@ const Home = ({ blogs, users, data }) => {
         {isAuthorized(user, "admin") ? (
           <BasePage indexPage title="Nedre Sundet">
             <div className="main-section">
-              {/* <div className="background-image">
-            <Image
-              src="/images/background-index.png"
-              alt="background image"
-              width={1548}
-              height={500}
-            />
-          </div> */}
               <Container>
                 <Row>
                   <Col md="6" className="hero-welcome-wrapper">
+                    <div></div>
+                    {/* old */}
                     <div className="hero-welcome-text">
                       <h1>
                         Funderar över innehåll här. Kan tänka mig en överblick
@@ -58,7 +50,7 @@ const Home = ({ blogs, users, data }) => {
                       </h1>
                     </div>
                   </Col>
-                  <Col md="6" className="hero-welcome-wrapper">
+                  {/* <Col md="6" className="hero-welcome-wrapper">
                     <div className="hero-welcome-text">
                       {data.map((user) => (
                         <Avatar
@@ -68,7 +60,7 @@ const Home = ({ blogs, users, data }) => {
                         />
                       ))}
                     </div>
-                  </Col>
+                  </Col> */}
                 </Row>
               </Container>
             </div>
@@ -81,14 +73,14 @@ const Home = ({ blogs, users, data }) => {
   );
 };
 
-export async function getStaticProps() {
-  // const { data } = await new BlogsApi().getAll();
-  const { data } = await new UsersApi().getAll();
-  // const blogs = data.map((item) => ({ ...item.blog, author: item.author }));
-  return {
-    props: { data },
-    revalidate: 1,
-  };
-}
+// export async function getStaticProps() {
+//   // const { data } = await new BlogsApi().getAll();
+//   const { data } = await new UsersApi().getAll();
+//   // const blogs = data.map((item) => ({ ...item.blog, author: item.author }));
+//   return {
+//     props: { data },
+//     revalidate: 1,
+//   };
+// }
 
 export default Home;
